@@ -2,6 +2,11 @@ package com.girl.update.task;
 
 import com.girl.update.utils.HttpRequest;
 import com.girl.update.utils.PropertiesUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +21,10 @@ import java.util.regex.Pattern;
  * @author: jingh
  * @date 2019/1/25 10:09
  */
+@Component
 public class DnsTask {
+
+    private final static Logger logger  = LoggerFactory.getLogger(DnsTask.class);
 
     /**
      * 配置信息 由config.properties 修改
@@ -25,15 +33,39 @@ public class DnsTask {
 
     private static String url = "http://update.dnsexit.com/RemoteUpdate.sv";
 
+    private static String domain = "jinghan.club";
+
+
 
     /**
-     * 获取信息
+     * 手动更新
+     * @param newDomain
      */
-    public void getUpdateInfo() {
+    public void refresh(String newDomain){
+        if(StringUtils.isNotBlank(newDomain)){
+            domain = newDomain;
+        }
         Map<String, String> map = HttpRequest.doGetToMap(PropertiesUtils.getInstance().get("dns_txt"));
         baseUrl = map.get("base");
         url = map.get("url");
-        if(checkUrl(baseUrl)){
+        if (checkUrl(baseUrl)) {
+            updateIp();
+        }
+    }
+
+
+
+    /**
+     * 获取信息
+     * 每小时执行
+     */
+    @Scheduled(cron = "0 0/1 0/1 * * ? *")
+    public void getUpdateInfo() {
+        logger.info("每小时执行一次！");
+        Map<String, String> map = HttpRequest.doGetToMap(PropertiesUtils.getInstance().get("dns_txt"));
+        baseUrl = map.get("base");
+        url = map.get("url");
+        if (checkUrl(baseUrl)) {
             updateIp();
         }
     }
@@ -61,20 +93,21 @@ public class DnsTask {
      */
     public void updateIp() {
         String userInfo = "?login=userName&password=pwd&host=domain&myip=ipv4&force=Y";
-        userInfo = userInfo.replace("userName",PropertiesUtils.getInstance().get("update_user"));
-        userInfo = userInfo.replace("pwd",PropertiesUtils.getInstance().get("update_ip_pwd"));
-        userInfo = userInfo.replace("domain",PropertiesUtils.getInstance().get("update_domain"));
-        userInfo = userInfo.replace("ipv4",getOuterIp());
-        System.out.println(HttpRequest.doGet(url + userInfo));
+        userInfo = userInfo.replace("userName", PropertiesUtils.getInstance().get("update_user"));
+        userInfo = userInfo.replace("pwd", PropertiesUtils.getInstance().get("update_ip_pwd"));
+        userInfo = userInfo.replace("domain", domain);
+        userInfo = userInfo.replace("ipv4", getOuterIp());
+        logger.info(HttpRequest.doGet(url + userInfo));
     }
 
 
     /**
      * 亚马逊提供
      * 获取外网地址
+     *
      * @return
      */
-    public static String getOuterIp(){
+    public static String getOuterIp() {
         BufferedReader br = null;
         try {
             URL url = new URL("http://checkip.amazonaws.com");
@@ -83,8 +116,8 @@ public class DnsTask {
             return outerIp;
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            if(br != null){
+        } finally {
+            if (br != null) {
                 try {
                     br.close();
                 } catch (IOException e) {
@@ -95,7 +128,7 @@ public class DnsTask {
         return "";
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         DnsTask dnsTask = new DnsTask();
         dnsTask.getUpdateInfo();
     }
