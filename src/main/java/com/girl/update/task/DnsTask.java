@@ -59,7 +59,7 @@ public class DnsTask {
      * 获取信息
      * 每小时执行
      */
-    @Scheduled(cron = "0 0/1 0/1 * * ? *")
+    @Scheduled(cron = "0 0 0/1 * * ? ")
     public void getUpdateInfo() {
         logger.info("每小时执行一次！");
         Map<String, String> map = HttpRequest.doGetToMap(PropertiesUtils.getInstance().get("dns_txt"));

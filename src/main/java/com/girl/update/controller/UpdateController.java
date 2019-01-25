@@ -21,6 +21,15 @@ public class UpdateController {
     @Autowired
     private DnsTask dnsTask;
 
+
+    /**
+     * 手动更新
+     */
+    @GetMapping("")
+    public String index(){
+        return "index.html";
+    }
+
     /**
      * 手动更新
      */

@@ -1,2 +1,10 @@
 server:
   port: 8089
+spring:
+    # jackson时间格式化
+    jackson:
+        time-zone: GMT+8
+        date-format: yyyy-MM-dd HH:mm:ss
+    # thymeleaf 模板引擎
+    resources: # 指定静态资源的路径
+        static-locations: classpath:/static/,classpath:/templates/

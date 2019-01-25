@@ -5,36 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"></meta>
 </head>
-<body id="dpLTE">
-域名:<input type="text" v-model = "newDomain" style="width: 300px">
-    <input type="button" value="更新" @click="login">
+<body >
+<div id="dpLTE">
+    域名:<input type="text" v-model = "newDomain" style="width: 300px">
+    <input type="button" value="更新"  @click="refresh">
+</div>
+
 </body>
-<script src="/static/libs/jquery.min.js"></script>
-<script src="/static/libs/vue.min.js"></script>
+<script src="libs/jquery.min.js"></script>
+<script src="libs/vue.min.js"></script>
 <script type="text/javascript">
     var vm = new Vue({
         el:'#dpLTE',
-        data:{
-            newDomain: 'admin',
+        data: {
+            newDomain: 'jinghan.club'
         },
-        beforeCreate: function(){
-            if(self != top){
-                top.location.href = self.location.href;
-            }
-        },
-        methods: {
-            login: function () {
+        methods : {
+            refresh: function() {
                 $.ajax({
-                    type: "POST",
-                    url: "sys/login",
-                    data: data,
-                    dataType: "json",
-                    success: function(result){
+                    url : '/refresh',
+                    type : "post",
+                    data : JSON.stringify({'newDomain':vm.newDomain}),
+                    success : function(data) {
 
-                    }
+                    },
+
+
                 });
-            }
+            },
         }
-    });
+    })
 </script>
 </html>
