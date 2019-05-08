@@ -35,13 +35,30 @@ public class DnsTask {
 
     private static String domain = "jinghan.club";
 
+    private static String ip = "118.112.111.231";
 
+
+    public  String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public  String getUrl() {
+        return url;
+    }
+
+    public  String getDomain() {
+        return domain;
+    }
+
+    public  String getIp() {
+        return ip;
+    }
 
     /**
      * 手动更新
      * @param newDomain
      */
-    public void refresh(String newDomain){
+    public void refresh(String newDomain,String newIp){
         if(StringUtils.isNotBlank(newDomain)){
             domain = newDomain;
         }
@@ -49,7 +66,7 @@ public class DnsTask {
         baseUrl = map.get("base");
         url = map.get("url");
         if (checkUrl(baseUrl)) {
-            updateIp();
+            updateIp(newIp);
         }
     }
 
@@ -66,7 +83,7 @@ public class DnsTask {
         baseUrl = map.get("base");
         url = map.get("url");
         if (checkUrl(baseUrl)) {
-            updateIp();
+            updateIp(null);
         }
     }
 
@@ -91,13 +108,27 @@ public class DnsTask {
     /**
      * 更新域名 与 ip 的关系
      */
-    public void updateIp() {
+    public void updateIp(String newIp) {
+        String outerIp = "";
         String userInfo = "?login=userName&password=pwd&host=domain&myip=ipv4&force=Y";
         userInfo = userInfo.replace("userName", PropertiesUtils.getInstance().get("update_user"));
         userInfo = userInfo.replace("pwd", PropertiesUtils.getInstance().get("update_ip_pwd"));
         userInfo = userInfo.replace("domain", domain);
-        userInfo = userInfo.replace("ipv4", getOuterIp());
-        logger.info(HttpRequest.doGet(url + userInfo));
+//        判断是手动 还是自动
+        if(StringUtils.isNotBlank(newIp)){
+            outerIp = newIp;
+        }else {
+            outerIp = getOuterIp();
+        }
+
+        if(!outerIp.equals(ip)){
+            ip = outerIp;
+            userInfo = userInfo.replace("ipv4",outerIp );
+            String s = HttpRequest.doGet(url + userInfo);
+            logger.info("更新域名 {}",s);
+        }else{
+            logger.info("无需更新");
+        }
     }
 
 

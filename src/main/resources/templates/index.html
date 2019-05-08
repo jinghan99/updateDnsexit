@@ -5,10 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"></meta>
 </head>
-<body >
+<body>
 <div id="dpLTE">
-    域名:<input type="text" v-model = "newDomain" style="width: 300px">
-    <input type="button" value="更新"  @click="refresh">
+    <ul>
+        <li >domain: {{info.domain}}</li>
+        <li >ip: {{info.ip}}</li>
+        <li >url: {{info.url}}</li>
+        <li >baseUrl: {{info.baseUrl}}</li>
+    </ul>
+
+    <ul>
+        <li >newDomain: <input type="text" v-model="newDomain" style="width: 300px"></li>
+        <li >newIp: <input type="text" v-model="newIp" style="width: 300px"></li>
+    </ul>
+    <input type="button" value="更新" @click="submitFor">
 </div>
 
 </body>
@@ -16,23 +26,37 @@
 <script src="libs/vue.min.js"></script>
 <script type="text/javascript">
     var vm = new Vue({
-        el:'#dpLTE',
+        el: '#dpLTE',
         data: {
-            newDomain: 'jinghan.club'
+            newDomain: '',
+            newIp:'',
+            info:[],
         },
-        methods : {
-            refresh: function() {
+        created: function () {
+            this.refresh();
+        },
+        methods: {
+            refresh: function () {
                 $.ajax({
-                    url : '/refresh',
-                    type : "post",
-                    data : JSON.stringify({'newDomain':vm.newDomain}),
-                    success : function(data) {
-
+                    url: '/getInfo',
+                    type: "get",
+                    success: function (data) {
+                        console.log(data);
+                        vm.info = data;
                     },
-
-
                 });
             },
+            submitFor:function () {
+                $.ajax({
+                    url: '/refresh',
+                    type: "post",
+                    data: {'newDomain': vm.newDomain,'newIp':vm.newIp},
+                    success: function (data) {
+                        alert(data)
+                        vm.refresh();
+                    },
+                });
+            }
         }
     })
 </script>

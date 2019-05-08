@@ -35,9 +35,8 @@
 
 		<!-- Thymeleaf -->
 		<dependency>
-			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf-spring4</artifactId>
-			<version>${thymeleaf-version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
 		<dependency>
@@ -72,10 +71,10 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.4.13</version>
 				<configuration>
-					<imageName>guns</imageName>
+					<imageName>girl_update_ip</imageName>
 					<baseImage>java</baseImage>
 					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-					<dockerHost>http://jinghan.club:2375</dockerHost>
+					<dockerHost>http://jinghan.club:2377</dockerHost>
 					<resources>
 						<resource>
 							<targetPath>/</targetPath>
