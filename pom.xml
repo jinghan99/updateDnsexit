@@ -74,7 +74,7 @@
 					<imageName>girl_update_ip</imageName>
 					<baseImage>java</baseImage>
 					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
-					<dockerHost>http://jinghan.club:2377</dockerHost>
+					<dockerHost>http://jinghan.club:2375</dockerHost>
 					<resources>
 						<resource>
 							<targetPath>/</targetPath>
