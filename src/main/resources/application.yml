@@ -8,3 +8,7 @@ spring:
     # thymeleaf 模板引擎
     resources: # 指定静态资源的路径
         static-locations: classpath:/static/,classpath:/templates/
+    profiles:
+      active: prod
+logging:
+  path:  /logs/
