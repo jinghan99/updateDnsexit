@@ -19,5 +19,9 @@ public interface AliYunDnsService {
      */
     void analysisAliDns(String newIp);
 
+    /**
+     * 获取详细信息
+     * @return
+     */
     DescribeDomainRecordsResponse.Record getAli();
 }

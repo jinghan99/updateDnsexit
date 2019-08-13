@@ -82,7 +82,6 @@ public class AliYunDnsServiceImpl implements AliYunDnsService {
             // 进行判定记录是否需要更新
             if (record.getValue().equals(newIp)) {
                 logger.info("当前域名解析地址为：{}不需要更新！",newIp);
-                System.out.println();
             }else {
                 logger.info("更新域名：{}",newIp);
                 Aliyun yun = new Aliyun();
