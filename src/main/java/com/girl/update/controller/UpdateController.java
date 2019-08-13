@@ -1,5 +1,6 @@
 package com.girl.update.controller;
 
+import com.girl.update.service.AliYunDnsService;
 import com.girl.update.task.DnsTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,8 @@ public class UpdateController {
     @Autowired
     private DnsTask dnsTask;
 
+    @Autowired
+    private AliYunDnsService aliYunDnsService;
 
     /**
      * 手动更新
@@ -54,5 +57,12 @@ public class UpdateController {
         return "ok";
     }
 
+
+    @GetMapping("/ali")
+    @ResponseBody
+    public String ali(String newIp){
+        aliYunDnsService.analysisAliDns(newIp);
+        return "index.html";
+    }
 
 }

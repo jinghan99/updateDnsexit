@@ -1,6 +1,7 @@
 package com.girl.update.task;
 
 import com.girl.update.utils.HttpRequest;
+import com.girl.update.utils.IpUtils;
 import com.girl.update.utils.PropertiesUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -118,7 +119,7 @@ public class DnsTask {
         if(StringUtils.isNotBlank(newIp)){
             outerIp = newIp;
         }else {
-            outerIp = getOuterIp();
+            outerIp = IpUtils.getIpv4Ip();
         }
 
         if(!outerIp.equals(ip)){
@@ -132,32 +133,6 @@ public class DnsTask {
     }
 
 
-    /**
-     * 亚马逊提供
-     * 获取外网地址
-     *
-     * @return
-     */
-    public static String getOuterIp() {
-        BufferedReader br = null;
-        try {
-            URL url = new URL("http://checkip.amazonaws.com");
-            br = new BufferedReader(new InputStreamReader(url.openStream()));
-            String outerIp = br.readLine();
-            return outerIp;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return "";
-    }
 
     public static void main(String[] args){
         DnsTask dnsTask = new DnsTask();
