@@ -1,5 +1,7 @@
 package com.girl.update.controller;
 
+import com.aliyuncs.alidns.model.v20150109.DescribeDomainRecordsResponse;
+import com.aliyuncs.alidns.model.v20150109.DescribeDomainsResponse;
 import com.girl.update.service.AliYunDnsService;
 import com.girl.update.task.DnsTask;
 import org.slf4j.Logger;
@@ -13,14 +15,14 @@ import java.util.Map;
 
 /**
  * @Package com.girl.update.controller
- * @Description: TODO
+ * @Description: 主页
  * @author: jingh
  * @date 2019/1/25 15:41
  */
 @Controller
-public class UpdateController {
+public class IndexController {
 
-    private final static Logger logger = LoggerFactory.getLogger(UpdateController.class);
+    private final static Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
     private DnsTask dnsTask;
@@ -59,10 +61,29 @@ public class UpdateController {
 
 
     @GetMapping("/ali")
-    @ResponseBody
-    public String ali(String newIp){
-        aliYunDnsService.analysisAliDns(newIp);
-        return "index.html";
+    public String ali(){
+        return "ali.html";
     }
 
+
+
+    /**
+     * 手动更新
+     */
+    @PostMapping("/ali/refresh")
+    @ResponseBody
+    public String ali_refresh(String newIp){
+        aliYunDnsService.analysisAliDns(newIp);
+        return "ok";
+    }
+
+    /**
+     * 阿里 配置获取
+     * @return
+     */
+    @GetMapping("/ali/get")
+    @ResponseBody
+    public DescribeDomainRecordsResponse.Record aliGet(){
+        return  aliYunDnsService.getAli();
+    }
 }

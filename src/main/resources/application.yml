@@ -1,14 +1,23 @@
 server:
   port: 8999
+
 spring:
-    # jackson时间格式化
-    jackson:
-        time-zone: GMT+8
-        date-format: yyyy-MM-dd HH:mm:ss
-    # thymeleaf 模板引擎
-    resources: # 指定静态资源的路径
-        static-locations: classpath:/static/,classpath:/templates/
-    profiles:
-      active: prod
+  thymeleaf:
+    cache: false
+  # jackson时间格式化
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  resources: # 指定静态资源的路径
+    static-locations: classpath:/static/,classpath:/templates/
+  profiles:
+    active: prod
+
 logging:
   path:  /logs/
+
+#常量配置
+api:
+  domain: yangfan.cloud
+  AccessKeyId: LTAIvm2CzSHsTooY
+  AccessKeySecret: ncBQSP51ngU4B124kw7pLVuVotbECw
