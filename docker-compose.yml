@@ -6,7 +6,7 @@ services:
     ports:
       - "8999:8999"
     environment:
-      - API_DOMAIN=eureka
+      - API_DOMAIN=yangfan.cloud
       - API_ACCESSKEYID=LTAIvm2CzSHsTooY
       - API_ACCESSKEY_SECRET=ncBQSP51ngU4B124kw7pLVuVotbECw
     volumes:
