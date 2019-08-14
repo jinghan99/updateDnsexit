@@ -78,9 +78,9 @@ public class AliYunDnsServiceImpl implements AliYunDnsService {
             for(DescribeDomainRecordsResponse.Record record:list){
                 // 进行判定记录是否需要更新
                 if (record.getValue().equals(newIp)) {
-                    logger.info("当前域名解析地址为：{}不需要更新！",newIp);
+                    logger.info("域名地址：{} 当前ip为:{} 不需要更新！",record.getRR()+"."+ record.getDomainName(),newIp);
                 }else {
-                    logger.info("更新域名：{}",newIp);
+                    logger.info("更新域名：{} ip为:{}",record.getRR()+"."+ record.getDomainName(),newIp);
                     Aliyun yun = new Aliyun();
                     // 进行替换关键数据
                     yun.setIpV4(newIp);
