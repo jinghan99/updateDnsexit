@@ -16,8 +16,8 @@ spring:
 logging:
   path:  /logs/
 
-#常量配置
+# docker 常量配置
 api:
-  domain: yangfan.cloud
-  AccessKeyId: LTAIvm2CzSHsTooY
-  AccessKeySecret: ncBQSP51ngU4B124kw7pLVuVotbECw
+  domain:  ${API_DOMAIN:yangfan.cloud}
+  AccessKeyId: ${API_ACCESSKEYID:LTAIvm2CzSHsTooY}
+  AccessKeySecret: ${API_ACCESSKEY_SECRET:ncBQSP51ngU4B124kw7pLVuVotbECw}

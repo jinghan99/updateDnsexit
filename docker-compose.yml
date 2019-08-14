@@ -1,0 +1,11 @@
+version: '2'
+services:
+  update-dns-8999:
+    image: yf_girl/update-dns
+    restart: always
+    ports:
+      - "8999:8999"
+    environment:
+      - API_DOMAIN=eureka
+      - API_ACCESSKEYID=LTAIvm2CzSHsTooY
+      - API_ACCESSKEY_SECRET=ncBQSP51ngU4B124kw7pLVuVotbECw
