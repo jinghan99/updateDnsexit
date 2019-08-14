@@ -75,25 +75,23 @@ public class AliYunDnsServiceImpl implements AliYunDnsService {
             if (list == null || list.isEmpty()) {
                 return;
             }
-
-            //更新ip
-            DescribeDomainRecordsResponse.Record record = list.get(0);
-
-            // 进行判定记录是否需要更新
-            if (record.getValue().equals(newIp)) {
-                logger.info("当前域名解析地址为：{}不需要更新！",newIp);
-            }else {
-                logger.info("更新域名：{}",newIp);
-                Aliyun yun = new Aliyun();
-                // 进行替换关键数据
-                yun.setIpV4(newIp);
-                yun.setRecordId(record.getRecordId());
-                yun.setRr(record.getRR());
-                yun.setTTL(record.getTTL());
-                yun.setType(record.getType());
-                logger.info("域名更换ip开始：{}",newIp);
-                analysisDns(yun);
-                logger.info("域名更换ip结束：{}",newIp);
+            for(DescribeDomainRecordsResponse.Record record:list){
+                // 进行判定记录是否需要更新
+                if (record.getValue().equals(newIp)) {
+                    logger.info("当前域名解析地址为：{}不需要更新！",newIp);
+                }else {
+                    logger.info("更新域名：{}",newIp);
+                    Aliyun yun = new Aliyun();
+                    // 进行替换关键数据
+                    yun.setIpV4(newIp);
+                    yun.setRecordId(record.getRecordId());
+                    yun.setRr(record.getRR());
+                    yun.setTTL(record.getTTL());
+                    yun.setType(record.getType());
+                    logger.info("域名更换ip开始：{}",newIp);
+                    analysisDns(yun);
+                    logger.info("域名更换ip结束：{}",newIp);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,5 +168,4 @@ public class AliYunDnsServiceImpl implements AliYunDnsService {
             e.printStackTrace();
         }
     }
-
 }

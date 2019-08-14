@@ -25,10 +25,10 @@ public class AliTask {
 
     /**
      * 定时刷新
-     * 每分钟执行
+     * 每10分钟执行
      * 0 0/10 * * * ?
      */
-    @Scheduled(cron = "0 0/1 * * * ? ")
+    @Scheduled(cron = "0 0/10 * * * ? ")
     public void scheduled() {
         logger.info("每10分钟执行一次！");
         aliYunDnsService.analysisAliDns(null);

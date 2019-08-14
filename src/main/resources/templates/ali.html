@@ -23,21 +23,21 @@
     <div class="layui-form-item">
         <label class="layui-form-label">域名</label>
         <div class="layui-input-block">
-            <input type="text" name="domain"  lay-verify="title" autocomplete="off" disabled placeholder=""
+            <input type="text" name="domain" lay-verify="title" autocomplete="off" disabled placeholder=""
                    class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">ip地址</label>
         <div class="layui-input-block">
-            <input type="text" name="ip" disabled   autocomplete="off" class="layui-input">
+            <input type="text" name="ip" disabled autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">新IP地址</label>
         <div class="layui-input-block">
-            <input type="text" name="newIp"     autocomplete="off" class="layui-input">
+            <input type="text" name="newIp" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -59,17 +59,17 @@
 
         let $ = layui.jquery;
 
+        refresh();
         //监听提交
         form.on('submit(demo1)', function (data) {
-
-
             $.ajax({
                 url: '/ali/refresh',
                 type: 'post',
                 data: data.field,
                 cache: false,
                 success: function (res) {
-                    layer.alert(JSON.stringify(res))
+                    layer.alert(res);
+                    refresh();
                 },
                 error: function (result) {
                 }
@@ -78,22 +78,24 @@
         });
 
 
-        //获取 阿里 域名配置
-        $.ajax({
-            url: '/ali/get',
-            type: 'get',
-            cache: false,
-            success: function (res) {
-                //表单初始赋值
-                form.val('domain_form', {
-                    "domain": res.domainName,
-                    "ip": res.value,
-                })
-            },
-            error: function (result) {
+        function refresh() {
+            //获取 阿里 域名配置
+            $.ajax({
+                url: '/ali/get',
+                type: 'get',
+                cache: false,
+                success: function (res) {
+                    //表单初始赋值
+                    form.val('domain_form', {
+                        "domain": res.domainName,
+                        "ip": res.value,
+                    })
+                },
+                error: function (result) {
 
-            }
-        });
+                }
+            });
+        }
     });
 </script>
 
