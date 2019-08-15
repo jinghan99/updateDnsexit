@@ -45,6 +45,7 @@ pipeline {
 
 
                 old_run=$(docker ps -a |grep registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns   |awk '{print $1}')
+
                 echo "show old_run ：$old_run "
 
                 if [ x"$old_run" != x ]; then
@@ -54,13 +55,6 @@ pipeline {
                     docker rm $old_run
                 else
                     echo "无运行中的 容器"
-                fi
-
-                if [ x"$old_tag" != x ]
-                    then
-                    echo "先删除 旧的重复版本 $old_tag"
-                    echo "先查询重复版本 是否在运行 $old_tag"
-                    docker rmi $old_tag
                 fi
 
                 if [ x$image_id == x ]; then
