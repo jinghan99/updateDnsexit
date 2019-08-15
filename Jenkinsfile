@@ -56,6 +56,16 @@ pipeline {
                 else
                     echo "无运行中的 容器"
                 fi
+                if [ x"$old_tag" != x ]; then
+
+                    echo "先删除  旧的 版本 镜像 "
+                    docker stop $old_run
+                    docker rmi registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns:$git_version
+                    docker rmi registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns:latest
+                else
+                    echo "无运行中的 容器"
+                fi
+
 
                 if [ x$image_id == x ]; then
                     echo "image_id not found"
