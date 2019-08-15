@@ -61,6 +61,7 @@ pipeline {
 
         stage('run docker') {
             steps {
+                 echo "当前路径：$PWD"
                  echo "运行 当前docker compose "
                  sh "docker-compose  docker-compose.yml up -d"
             }
