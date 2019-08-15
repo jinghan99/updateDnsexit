@@ -47,11 +47,13 @@ pipeline {
                 old_run=$(docker ps -a |grep registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns   |awk '{print $1}')
                 echo "show old_run ：$old_run "
 
-                if [ x"$old_run" != x ]
+                if [ x"$old_run" != x ]; then
                     then
                     echo "先删除 停止 旧的重复版本 运行 $old_run"
                     docker stop $old_run
                     docker rm $old_run
+                else
+                    echo "无运行中的 容器"
                 fi
 
                 if [ x"$old_tag" != x ]
