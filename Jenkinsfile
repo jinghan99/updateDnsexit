@@ -55,6 +55,7 @@ pipeline {
                     docker tag $image_id registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns:$git_version
                     echo "推送远程镜像容器 registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns:$git_version"
                     docker push registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns:$git_version
+                    docker push registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns:latest
                 fi
                 '''
             }
