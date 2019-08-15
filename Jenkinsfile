@@ -48,7 +48,7 @@ pipeline {
                 echo "show old_run ：$old_run "
 
                 if [ x"$old_run" != x ]; then
-                    then
+
                     echo "先删除 停止 旧的重复版本 运行 $old_run"
                     docker stop $old_run
                     docker rm $old_run
