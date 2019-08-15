@@ -42,14 +42,17 @@ pipeline {
                 echo "show imageid ：$image_id docker tag： $git_version "
 
                 old_tag=$(docker images |grep registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns| grep $git_version   |awk '{print $3}')
+
+
                 old_run=$(docker ps -a |grep registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns   |awk '{print $1}')
+                echo "show old_run ：$old_run "
 
                 if [ x"$old_run" != x ]
                     then
                     echo "先删除 停止 旧的重复版本 运行 $old_run"
                     docker stop $old_run
                     docker rm $old_run
-                 fi
+                fi
 
                 if [ x"$old_tag" != x ]
                     then
@@ -82,7 +85,7 @@ pipeline {
                  cd $WORKSPACE
                  echo "当前路径：$PWD"
                  docker-compose  up -d
-                '''
+                 '''
             }
         }
 
