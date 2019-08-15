@@ -42,11 +42,22 @@ pipeline {
                 echo "show imageid ：$image_id docker tag： $git_version "
 
                 old_tag=$(docker images |grep registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns| grep $git_version   |awk '{print $3}')
+                old_run=$(docker ps -a |grep registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns   |awk '{print $1}')
+
+                if [ x"$old_run" != x ]
+                    then
+                    echo "先删除 停止 旧的重复版本 运行 $old_run"
+                    docker stop $old_run
+                    docker rm $old_run
+                 fi
+
                 if [ x"$old_tag" != x ]
                     then
                     echo "先删除 旧的重复版本 $old_tag"
+                    echo "先查询重复版本 是否在运行 $old_tag"
                     docker rmi $old_tag
                 fi
+
                 if [ x$image_id == x ]; then
                     echo "image_id not found"
                 else
