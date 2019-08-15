@@ -61,7 +61,6 @@ pipeline {
 
         stage('run docker') {
             steps {
-
                  echo "运行 当前docker compose "
                  sh'''
                  cd $WORKSPACE
