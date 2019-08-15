@@ -63,6 +63,7 @@ pipeline {
             steps {
                  echo "当前路径：$PWD"
                  echo "运行 当前docker compose "
+                 sh "cd /home/jenkins/workspace/Jenkins-update-dns"
                  sh "docker-compose  docker-compose.yml up -d"
             }
         }
