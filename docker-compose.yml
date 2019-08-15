@@ -1,7 +1,7 @@
 version: '2'
 services:
   update-dns-8999:
-    image: yf_girl/update-dns
+    image: registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns
     restart: always
     ports:
       - "8999:8999"
