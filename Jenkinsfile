@@ -58,8 +58,7 @@ pipeline {
                 fi
                 if [ x"$old_tag" != x ]; then
 
-                    echo "先删除  旧的 版本 镜像 "
-                    docker stop $old_run
+                    echo "删除  旧的 镜像 "
                     docker rmi registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns:$git_version
                     docker rmi registry.cn-hangzhou.aliyuncs.com/yf_girl/update_dns:latest
                 else
