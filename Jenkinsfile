@@ -61,12 +61,12 @@ pipeline {
 
         stage('run docker') {
             steps {
-                 echo "当前路径：$PWD"
+
                  echo "运行 当前docker compose "
                  sh'''
                  cd $WORKSPACE
                  echo "当前路径：$PWD"
-                 docker-compose  docker-compose.yml up -d
+                 docker-compose  up -d
                 '''
             }
         }
