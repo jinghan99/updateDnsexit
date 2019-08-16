@@ -12,3 +12,4 @@ services:
     volumes:
       - /home/docker/update-dns:/logs/
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
