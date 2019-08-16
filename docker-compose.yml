@@ -11,4 +11,5 @@ services:
       - API_ACCESSKEY_SECRET=ncBQSP51ngU4B124kw7pLVuVotbECw
     volumes:
       - /home/docker/update-dns:/logs/
+      - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
