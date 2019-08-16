@@ -23,8 +23,8 @@ public class UpdateApplication {
 	@PostConstruct
 	void started() {
 //		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
-//		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
+//		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
 		System.out.println(new Date());
 	}
 }
