@@ -3,10 +3,14 @@ package com.girl.update;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 /**
- * @Description: @EnableScheduling 注解即可开启定时任务
- * @auther: jinghan
- * @date: 2019/1/25 15:35
+ * 动态 更新 ip 域名
+ * @author: jinghan
+ * @date: 2019/8/16  10:46
  */
 @EnableScheduling
 @SpringBootApplication
