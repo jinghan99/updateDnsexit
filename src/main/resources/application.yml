@@ -2,9 +2,6 @@ server:
   port: 8999
 
 spring:
-  jackson:
-    time-zone: GMT+8
-    date-format: yyyy-MM-dd HH:mm:ss
   thymeleaf:
     cache: false
   resources: # 指定静态资源的路径
