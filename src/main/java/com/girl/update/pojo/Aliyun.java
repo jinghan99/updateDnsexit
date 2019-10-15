@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 阿里云DNS 云解析对象
- * @author xiang
+ * @author jinghan
  *
  */
 public class Aliyun implements Serializable {
