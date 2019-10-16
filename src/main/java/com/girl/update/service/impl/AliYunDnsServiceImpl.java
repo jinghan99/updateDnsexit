@@ -80,9 +80,10 @@ public class AliYunDnsServiceImpl implements AliYunDnsService {
                 if (record.getValue().equals(newIp)) {
                     logger.info("域名地址：{} 当前ip为:{} 不需要更新！",record.getRR()+"."+ record.getDomainName(),newIp);
                 }else if("blog".equals(record.getRR())){
+//                    固定ip 不用修改
                     logger.info("blog域名地址：{} ip地址：{}",record.getRR()+"."+ record.getDomainName(),record.getValue());
-                } else {
-                    logger.info("更新域名：{} ip为:{}",record.getRR()+"."+ record.getDomainName(),newIp);
+                } else if("local".equals(record.getRR())){
+                    logger.info("local 更新域名：{} ip为:{}",record.getRR()+"."+ record.getDomainName(),newIp);
                     Aliyun yun = new Aliyun();
                     // 进行替换关键数据
                     yun.setIpV4(newIp);
