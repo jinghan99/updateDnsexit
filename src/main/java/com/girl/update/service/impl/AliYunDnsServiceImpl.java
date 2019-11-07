@@ -77,23 +77,23 @@ public class AliYunDnsServiceImpl implements AliYunDnsService {
             }
             for(DescribeDomainRecordsResponse.Record record:list){
                 // 进行判定记录是否需要更新
-                if (record.getValue().equals(newIp)) {
-                    logger.info("域名地址：{} 当前ip为:{} 不需要更新！",record.getRR()+"."+ record.getDomainName(),newIp);
-                }else if("blog".equals(record.getRR())){
+               if("blog".equals(record.getRR())){
 //                    固定ip 不用修改
                     logger.info("blog域名地址：{} ip地址：{}",record.getRR()+"."+ record.getDomainName(),record.getValue());
                 } else if("local".equals(record.getRR())){
-                    logger.info("local 更新域名：{} ip为:{}",record.getRR()+"."+ record.getDomainName(),newIp);
-                    Aliyun yun = new Aliyun();
-                    // 进行替换关键数据
-                    yun.setIpV4(newIp);
-                    yun.setRecordId(record.getRecordId());
-                    yun.setRr(record.getRR());
-                    yun.setTTL(record.getTTL());
-                    yun.setType(record.getType());
-                    logger.info("域名更换ip开始：{}",newIp);
-                    analysisDns(yun);
-                    logger.info("域名更换ip结束：{}",newIp);
+                    if(record.getValue().equals(newIp)){
+                        logger.info("local 域名地址：{} 当前ip为:{} 不需要更新！",record.getRR()+"."+ record.getDomainName(),newIp);
+                    }else{
+                        logger.info("local 更新域名：{} ip为:{}",record.getRR()+"."+ record.getDomainName(),newIp);
+                        Aliyun yun = new Aliyun();
+                        // 进行替换关键数据
+                        yun.setIpV4(newIp);
+                        yun.setRecordId(record.getRecordId());
+                        yun.setRr(record.getRR());
+                        yun.setTTL(record.getTTL());
+                        yun.setType(record.getType());
+                        analysisDns(yun);
+                    }
                 }
             }
         } catch (Exception e) {
