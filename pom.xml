@@ -108,7 +108,7 @@
 				<configuration>
 					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
 					<dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-					<dockerHost>http://127.0.0.1:2375</dockerHost>
+					<dockerHost>http://192.168.3.2:2377</dockerHost>
 					<resources>
 						<resource>
 							<targetPath>/</targetPath>
