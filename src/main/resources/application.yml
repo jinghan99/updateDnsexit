@@ -13,6 +13,6 @@ logging:
   path:  /logs/
 
 api:
-  domain:  ${API_DOMAIN:yangfan.cloud}
-  AccessKeyId: ${API_ACCESSKEYID:LTAIvm2CzSHsTooY}
-  AccessKeySecret: ${API_ACCESSKEY_SECRET:ncBQSP51ngU4B124kw7pLVuVotbECw}
+  domain:  ${API_DOMAIN}
+  AccessKeyId: ${API_ACCESSKEYID}
+  AccessKeySecret: ${API_ACCESSKEY_SECRET}
