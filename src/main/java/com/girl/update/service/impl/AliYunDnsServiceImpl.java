@@ -55,19 +55,18 @@ public class AliYunDnsServiceImpl implements AliYunDnsService {
      */
     @Override
     public void analysisAliDns(String newIp) {
-
         if(StringUtils.isEmpty(newIp)){
             newIp = IpUtils.getIpv4Ip();
         }
 
-        // 获取解析的数据
-        String actionName = "DescribeDomainRecords";
-        DescribeDomainRecordsResponse response;
-        // 获取request
-        DescribeDomainRecordsRequest request = AliDdnsUtils.getRequestQuery(actionName);
-        // 设置request参数
-        setParam(request);
         try {
+            // 获取解析的数据
+            String actionName = "DescribeDomainRecords";
+            DescribeDomainRecordsResponse response;
+            // 获取request
+            DescribeDomainRecordsRequest request = AliDdnsUtils.getRequestQuery(actionName);
+            // 设置request参数
+            setParam(request);
             response = defaultAcsClient.getAcsResponse(request);
 
             // 获取阿里云的数据
@@ -76,11 +75,8 @@ public class AliYunDnsServiceImpl implements AliYunDnsService {
                 return;
             }
             for(DescribeDomainRecordsResponse.Record record:list){
-                // 进行判定记录是否需要更新
-               if("blog".equals(record.getRR())){
-//                    固定ip 不用修改
-                    logger.info("blog域名地址：{} ip地址：{}",record.getRR()+"."+ record.getDomainName(),record.getValue());
-                } else if("local".equals(record.getRR())){
+                //域名前缀 进行判定记录是否需要更新
+               if(apiConstant.getPrefixUrl().equals(record.getRR())){
                     if(record.getValue().equals(newIp)){
                         logger.info("local 域名地址：{} 当前ip为:{} 不需要更新！",record.getRR()+"."+ record.getDomainName(),newIp);
                     }else{

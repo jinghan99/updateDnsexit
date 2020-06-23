@@ -23,6 +23,9 @@ public class ApiConstant {
     @Value("${api.domain}")
     private String domain;
 
+    @Value("${api.prefixUrl}")
+    private String prefixUrl;
+
     public String getAccessKeyId() {
         return AccessKeyId;
     }
@@ -45,5 +48,13 @@ public class ApiConstant {
 
     public void setDomain(String domain) {
         this.domain = domain;
+    }
+
+    public String getPrefixUrl() {
+        return prefixUrl;
+    }
+
+    public void setPrefixUrl(String prefixUrl) {
+        this.prefixUrl = prefixUrl;
     }
 }

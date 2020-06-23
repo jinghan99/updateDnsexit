@@ -16,3 +16,5 @@ api:
   domain:  ${API_DOMAIN}
   AccessKeyId: ${API_ACCESSKEYID}
   AccessKeySecret: ${API_ACCESSKEY_SECRET}
+#  域名前缀
+  prefixUrl: ${PREFIX_URL:local}
