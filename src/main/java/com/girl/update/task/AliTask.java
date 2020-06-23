@@ -4,6 +4,7 @@ import com.girl.update.service.AliYunDnsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +29,7 @@ public class AliTask {
      * 每10分钟执行
      * 0 0/10 * * * ?
      */
+    @Async
     @Scheduled(cron = "0 0/10 * * * ? ")
     public void scheduled() {
         logger.info("每10分钟执行一次！");
